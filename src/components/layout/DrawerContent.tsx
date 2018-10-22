@@ -12,7 +12,8 @@ import { createLink } from "src/helpers/links";
 
 const styles = createStyles({
   primary: {
-    overflow: "auto",
+    overflowY: "auto",
+    overflowX: "hidden",
     flex: 1
   },
   active: {
