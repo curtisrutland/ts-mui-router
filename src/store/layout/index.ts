@@ -10,16 +10,26 @@ export type DrawerStateOptions = "open" | "closed";
 export interface LayoutState {
   themeType: ThemeOptions;
   drawerState: DrawerStateOptions;
+  title: string;
+  subtitle: string;
 }
 
 export const defaultState: LayoutState = {
   themeType: "light",
-  drawerState: "closed"
+  drawerState: "closed",
+  title: "",
+  subtitle: ""
+};
+
+export interface SetTitlePayload {
+  title?: string;
+  subtitle?: string;
 }
 
 export const LayoutActions = {
   setThemeType: createStandardAction(ns`set_theme`)<ThemeOptions>(),
-  setDrawerState: createStandardAction(ns`set_drawer_state`)<DrawerStateOptions>()
+  setDrawerState: createStandardAction(ns`set_drawer_state`)<DrawerStateOptions>(),
+  setTitle: createStandardAction(ns`set_title`)<SetTitlePayload>()
 };
 
 export type LayoutActionsType = ActionType<typeof LayoutActions>;
@@ -32,6 +42,12 @@ export const reducer: Reducer<LayoutState> = (state = defaultState, action: Layo
 
     case getType(LayoutActions.setDrawerState):
       return { ...state, drawerState: action.payload as DrawerStateOptions };
+
+    case getType(LayoutActions.setTitle): {
+      let payload = <SetTitlePayload>action.payload;
+      let { title = state.title, subtitle = state.subtitle } = payload;
+      return { ...state, title, subtitle };
+    }
 
     default:
       return state;
