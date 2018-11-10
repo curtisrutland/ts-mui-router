@@ -12,7 +12,8 @@ import { LayoutActions } from "src/store/layout";
 import { styles, Styles } from "./jss/titleBar";
 
 interface PropsFromState {
-  drawerOpen: boolean
+  drawerOpen: boolean,
+  title: string
 };
 
 interface PropsFromDispatch {
@@ -21,12 +22,11 @@ interface PropsFromDispatch {
 
 type Props = PropsFromState & PropsFromDispatch & Styles & WithWidth;
 
-const TitleBar: React.SFC<Props> = ({ width, classes, drawerOpen, openDrawer }) => {
+const TitleBar: React.SFC<Props> = ({ width, classes, drawerOpen, openDrawer, title }) => {
   const isMobile = isWidthDown("sm", width, true);
   const appBarClasses = classNames(classes.appBar, (!isMobile && drawerOpen && classes.shifted));
   const iconButtonClasses = classNames((isMobile ? classes.mobileMenuButton : classes.menuButton), (!isMobile && drawerOpen && classes.hide));
   const disableGutters = !drawerOpen && !isMobile;
-  const title = process.env.REACT_APP_TITLE;
   return (
     <AppBar position="absolute" elevation={5} className={appBarClasses}>
       <Toolbar disableGutters={disableGutters}>
@@ -41,8 +41,11 @@ const TitleBar: React.SFC<Props> = ({ width, classes, drawerOpen, openDrawer }) 
   )
 }
 
-function mapState(state: ApplicationState): PropsFromState {
-  return { drawerOpen: state.layout.drawerState === "open" };
+function mapState({ layout }: ApplicationState): PropsFromState {
+  return {
+    drawerOpen: layout.drawerState === "open",
+    title: layout.title
+  };
 }
 
 function mapDispatch(dispatch: Dispatch): PropsFromDispatch {

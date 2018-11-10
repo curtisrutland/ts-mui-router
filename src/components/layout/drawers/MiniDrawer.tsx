@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer, IconButton, Divider } from "../../mui";
+import { Drawer, IconButton, Divider, Typography } from "../../mui";
 import { ChevronLeftIcon } from "../../mui/icons";
 import { withStyles } from "src/components/mui/style";
 import { compose } from "recompose";
@@ -9,10 +9,11 @@ import { Dispatch, bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import DrawerContent from "../DrawerContent";
 import classNames from "classnames";
-import {styles, Styles} from "../jss/miniDrawer";
+import { styles, Styles } from "../jss/miniDrawer";
 
 interface PropsFromState {
     open: boolean;
+    subtitle: string;
 }
 
 interface PropsFromDispatch {
@@ -21,7 +22,7 @@ interface PropsFromDispatch {
 
 type Props = PropsFromState & PropsFromDispatch & Styles;
 
-const MiniDrawer: React.SFC<Props> = ({ open, onClose, classes }) => {
+const MiniDrawer: React.SFC<Props> = ({ open, onClose, classes, subtitle }) => {
     return (
         <Drawer
             variant="permanent"
@@ -31,6 +32,9 @@ const MiniDrawer: React.SFC<Props> = ({ open, onClose, classes }) => {
             open={open}
         >
             <div className={classes.toolbar}>
+                <div className={classes.subtitle}>
+                    <Typography>{subtitle}</Typography>
+                </div>
                 <IconButton onClick={onClose}>
                     <ChevronLeftIcon />
                 </IconButton>
@@ -41,9 +45,10 @@ const MiniDrawer: React.SFC<Props> = ({ open, onClose, classes }) => {
     )
 };
 
-function mapState(state: ApplicationState): PropsFromState {
+function mapState({ layout }: ApplicationState): PropsFromState {
     return {
-        open: state.layout.drawerState == "open"
+        open: layout.drawerState == "open",
+        subtitle: layout.subtitle
     }
 }
 

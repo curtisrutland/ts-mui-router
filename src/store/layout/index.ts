@@ -17,8 +17,8 @@ export interface LayoutState {
 export const defaultState: LayoutState = {
   themeType: "light",
   drawerState: "closed",
-  title: "",
-  subtitle: ""
+  title: process.env.REACT_APP_TITLE || "TITLE",
+  subtitle: process.env.REACT_APP_SUBTITLE || ""
 };
 
 export interface SetTitlePayload {

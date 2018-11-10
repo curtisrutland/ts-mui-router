@@ -29,6 +29,10 @@ export const styles = (theme: Theme) => createStyles({
         justifyContent: "flex-end",
         padding: "0 8px",
         ...theme.mixins.toolbar,
+    },
+    subtitle: {
+        flex: 1,
+        paddingLeft: theme.spacing.unit * 2
     }
 });
 
