@@ -6,7 +6,7 @@ export function createLink(to: string): React.SFC {
 }
 
 export function createNavLink(to: string, activeClass: string): React.SFC {
-    return (props) => <NavLink to={to} activeClassName={activeClass} {...props} />
+    return (props) => <NavLink to={to} activeClassName={activeClass} exact {...props} />
 }
 
 export { RouteComponentProps } from "react-router-dom";

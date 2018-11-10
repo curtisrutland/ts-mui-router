@@ -1,6 +1,6 @@
 import React from "react";
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from "src/components/mui/list";
-import { createStyles, withStyles, WithStyles } from "src/components/mui/style";
+import { createStyles, withStyles, WithStyles, Theme } from "src/components/mui/style";
 import { SunIcon, MoonIcon, HomeIcon, InfoIcon } from "src/components/mui/icons";
 import { compose } from "recompose";
 import { Dispatch, bindActionCreators } from "redux";
@@ -8,9 +8,9 @@ import { LayoutActions } from "src/store/layout";
 import { ThemeOptions } from "src/theme";
 import { connect } from "react-redux";
 import { ApplicationState } from "src/store";
-import { createLink } from "src/helpers/links";
+import { createNavLink } from "src/helpers/links";
 
-const styles = createStyles({
+const styles = (theme: Theme) => createStyles({
   primary: {
     overflowY: "auto",
     overflowX: "hidden",
@@ -29,7 +29,9 @@ interface PropsFromDispatch {
   setTheme: (theme: ThemeOptions) => void;
 };
 
-type Props = PropsFromState & PropsFromDispatch & WithStyles<typeof styles>;
+type Props = PropsFromState
+  & PropsFromDispatch
+  & WithStyles<typeof styles>;
 
 const DrawerContent: React.SFC<Props> = ({ classes, theme, setTheme }) => {
   const nextTheme = theme === "light" ? "dark" : "light";
@@ -39,13 +41,13 @@ const DrawerContent: React.SFC<Props> = ({ classes, theme, setTheme }) => {
   return (
     <>
       <List className={classes.primary}>
-        <ListItem button component={createLink("/")}>
+        <ListItem button component={createNavLink("/", classes.active)}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText>Home</ListItemText>
         </ListItem>
-        <ListItem button component={createLink("/about")}>
+        <ListItem button component={createNavLink("/about", classes.active)}>
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>

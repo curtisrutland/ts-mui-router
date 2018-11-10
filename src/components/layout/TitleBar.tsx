@@ -9,7 +9,7 @@ import { withWidth, WithWidth, isWidthDown } from "src/components/mui/width";
 import { MenuIcon } from "src/components/mui/icons";
 import { ApplicationState } from "src/store";
 import { LayoutActions } from "src/store/layout";
-import { styles, Styles } from "../jss/titleBar";
+import { styles, Styles } from "./jss/titleBar";
 
 interface PropsFromState {
   drawerOpen: boolean

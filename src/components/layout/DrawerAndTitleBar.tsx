@@ -1,10 +1,10 @@
 import React from "react";
 import { compose } from "recompose";
-import { withStyles, WithStyles, createStyles, Theme } from "../../mui/style";
-import { withWidth, WithWidth, isWidthDown } from "../../mui/width";
-import MobileDrawer from "./MobileDrawer";
+import { withStyles, WithStyles, createStyles, Theme } from "../mui/style";
+import { withWidth, WithWidth, isWidthDown } from "../mui/width";
+import MobileDrawer from "./drawers/MobileDrawer";
 import TitleBar from "./TitleBar";
-import MiniDrawer from "./MiniDrawer";
+import MiniDrawer from "./drawers/MiniDrawer";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -41,7 +41,19 @@ const DrawerAndTitleBar: React.SFC<Props> = ({ classes, width, ...props }) => {
   )
 }
 
-export default compose(
+const WrappedDrawerAndTitleBar = compose(
   withWidth(),
   withStyles(styles)
 )(DrawerAndTitleBar);
+
+export default WrappedDrawerAndTitleBar;
+
+type Content = React.ComponentClass | React.StatelessComponent;
+
+export const withDrawerAndTitleBar = (Child: Content): React.SFC => () => {
+  return (
+    <WrappedDrawerAndTitleBar>
+      <Child />
+    </WrappedDrawerAndTitleBar>
+  )
+}

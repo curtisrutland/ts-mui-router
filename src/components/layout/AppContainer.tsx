@@ -7,8 +7,7 @@ import { CssBaseline } from "../mui";
 import { MuiThemeProvider, Theme } from "../mui/style";
 import { theme } from "src/theme";
 import { ApplicationState } from "src/store";
-import DrawerAndTitleBar from "./components/DrawerAndTitleBar";
-import AppContent from "./AppContent";
+import { AppRoutes } from "../pages";
 
 interface OwnProps {
   store: Store<ApplicationState>
@@ -30,9 +29,7 @@ const App: React.SFC<Props> = ({ store, theme }) => {
       <Router>
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
-          <DrawerAndTitleBar>
-            <AppContent />
-          </DrawerAndTitleBar>
+          <AppRoutes />
         </MuiThemeProvider>
       </Router>
     </Provider>
