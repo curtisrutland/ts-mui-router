@@ -12,5 +12,5 @@ export function getSavedTheme(): ThemeOptions {
 
 export function saveTheme(theme: ThemeOptions) {
   localStorage.setItem(themeKey, theme);
-  console.log(`stored theme as ${theme}`);
+  console.debug(`stored theme as ${theme}`);
 }
