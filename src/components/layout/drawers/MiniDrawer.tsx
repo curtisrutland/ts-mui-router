@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer, IconButton } from "../../mui";
+import { Drawer, IconButton, Divider } from "../../mui";
 import { ChevronLeftIcon } from "../../mui/icons";
 import { withStyles } from "src/components/mui/style";
 import { compose } from "recompose";
@@ -35,6 +35,7 @@ const MiniDrawer: React.SFC<Props> = ({ open, onClose, classes }) => {
                     <ChevronLeftIcon />
                 </IconButton>
             </div>
+            <Divider />
             <DrawerContent />
         </Drawer>
     )
